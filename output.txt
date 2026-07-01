@@ -1,0 +1,30 @@
+Query: What is laptop price? after applied gold discount?
+Response: Here�s the pricing for **�laptop�** with a **gold discount** applied:
+
+- Original price: **1299.99**
+- Price after gold discount: **1000.99**
+
+
+Query: list the following products prices laptop, headphones, webcam, keyboard, mouse 
+    and apply gold discount to each product and provide the final price after discount.
+Response: Here are the prices and gold-tier discounted prices for each product:
+
+- **laptop**
+  - Original price: 1299.99  
+  - Final price (gold discount): 1000.99  
+
+- **headphones**
+  - Original price: 149.95  
+  - Final price (gold discount): 115.46  
+
+- **webcam**
+  - Original price: 79.95  
+  - Final price (gold discount): 61.56  
+
+- **keyboard**
+  - Original price: 89.50  
+  - Final price (gold discount): 68.92  
+
+- **mouse**
+  - Original price: 39.99  
+  - Final price (gold discount): 30.79  
