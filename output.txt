@@ -1,2 +1,51 @@
 Query: Get the laptop price
 Response: The price of the laptop is $1299.99.
+Query: What is laptop price? after applied gold discount?
+Response: The price of the laptop after applying the gold discount is $1000.99.
+Query: What is laptop price?
+Response: 
+Query: What is laptop price?
+Response: 1299.99
+Query: list the following products prices laptop, headphones, webcam, keyboard and mouse?
+Response: Here are the prices for the requested products:
+
+- Laptop: $1299.99
+- Headphones: $149.95
+- Webcam: $79.95
+- Keyboard: $89.50
+- Mouse: $39.99
+Query: Detailed price comparison of the following products: laptop, headphones, webcam, keyboard, mouse.
+                Apply the gold discount to each product and provide the final price after discount.
+Query: Detailed price comparison of the following products: laptop, headphones, webcam, keyboard, mouse.
+                Apply the gold discount to each product and provide the final price after discount.
+Response: Here is the detailed price comparison for the products after applying the gold discount:
+
+- **Laptop**: Original Price: $1299.99 → Final Price: $1000.99
+- **Headphones**: Original Price: $149.95 → Final Price: $115.46
+- **Webcam**: Original Price: $79.95 → Final Price: $61.56
+- **Keyboard**: Original Price: $89.50 → Final Price: $68.92
+- **Mouse**: Original Price: $39.99 → Final Price: $30.79
+
+If you need any further assistance, feel free to ask!
+Query: Detailed price comparison of the following products: laptop, headphones, webcam, keyboard, mouse.
+                Apply the gold discount to each product and provide the final price after discount.
+Response: Here is the detailed price comparison for the products after applying the gold discount:
+
+- **Laptop**: Original Price: $1299.99 → Final Price: $1000.99
+- **Headphones**: Original Price: $149.95 → Final Price: $115.46
+- **Webcam**: Original Price: $79.95 → Final Price: $61.56
+- **Keyboard**: Original Price: $89.50 → Final Price: $68.92
+- **Mouse**: Original Price: $39.99 → Final Price: $30.79
+
+If you need any further assistance, feel free to ask!
+Query: Detailed price comparison of the following products: laptop, headphones, webcam, keyboard, mouse.
+                Apply the gold discount to each product and provide the final price after discount.
+Response: Here is the detailed price comparison for the products after applying the gold discount:
+
+- **Laptop**: Original Price: $1299.99 → Final Price: $1000.99
+- **Headphones**: Original Price: $149.95 → Final Price: $115.46
+- **Webcam**: Original Price: $79.95 → Final Price: $61.56
+- **Keyboard**: Original Price: $89.50 → Final Price: $68.92
+- **Mouse**: Original Price: $39.99 → Final Price: $30.79
+
+If you need any further assistance, feel free to ask!
