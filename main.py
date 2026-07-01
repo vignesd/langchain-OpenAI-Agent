@@ -1,12 +1,11 @@
 import os
 from dotenv import load_dotenv
+from pydantic import BaseModel, Field
 
 from langchain_core.tools import tool
-from langchain_openai import AzureChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
-
-# create_tool_calling_agent, AgentExecutor,
-from langchain_core.prompts import ChatPromptTemplate
+from langchain.messages import AIMessage, SystemMessage, HumanMessage
 import logging
 
 load_dotenv()
@@ -16,31 +15,19 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
-model = AzureChatOpenAI(
-    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-    api_key=os.environ["AZURE_OPENAI_API_KEY"],
-    api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-    deployment_name=os.environ["AZURE_OPENAI_DEPLOYMENT"],
-    temperature=0,
-)
+model = ChatOpenAI(temperature=0, model="gpt-4o-mini")
 logging.info(
-    f"Initialized AzureChatOpenAI model with deployment: {os.environ['AZURE_OPENAI_DEPLOYMENT']}"
+    f"Initialized OpenAI model: {model.model_name} with temperature: {model.temperature}"
 )
 
+class Product(BaseModel):
+    Response: str=Field(description="The response from the agent, including the output and any intermediate steps.")
+    Confidence: float=Field(description="The confidence level of the price lookup.")
 
-# @tool
-# def get_stock_data(symbol: str) -> dict:
-#     """Fetch stock data for the given symbol."""
-#     return {"symbol": symbol}
-
-
-# @tool
-# def calculator(expression: str) -> str:
-#     """Evaluate a mathematical expression."""
-#     return str(eval(expression))
+logging.info("Defined Product model with fields: Name, Price, DiscountTier, DiscountedPrice, Confidence")
 
 
-@tool
+@tool()
 def get_product_price(query: str) -> float:
     """
     Look up the current price of a product matching the user's description.
@@ -260,20 +247,19 @@ def run_agent(query: str, system_prompt: str = None, tools: list = None) -> dict
     """
     try:
         logging.info(f"Running agent with query: {query}")
-        # prompt = ChatPromptTemplate.from_messages(
-        #     [
-        #         ("system", system_prompt),
-        #         ("human", "{input}"),
-        #         ("placeholder", "{agent_scratchpad}"),
-        #     ]
-        # )
-        agent = create_agent(model=model, tools=tools, system_prompt=system_prompt)
-        result = agent.invoke(
-            agent.invoke({"messages": [{"role": "user", "content": query}]})
-        )
-        # result = agent.run(query)
-        logging.info(f"Agent output: {result['messages'][-1].content}")
-        return result["messages"]
+        system_message = SystemMessage(content=system_prompt)
+        human_message = HumanMessage(content=query)
+        agent = create_agent(model=model, tools=tools)
+        result = agent.invoke({"messages": [system_message, human_message]})
+
+        messages = result["messages"]
+        logging.info(f"Agent returned {len(messages)} messages.")
+        last_ai_message = [m for m in messages if isinstance(m, AIMessage) and m.content.strip() != ""]
+        logging.info(f"After filtered {len(last_ai_message)} AI messages.")
+        for msg in last_ai_message:
+            logging.info(f"AI Message: {msg.content}")
+
+        return last_ai_message[0].content
     except Exception as e:
         logging.error(f"Error running agent: {e}")
         raise e
@@ -288,14 +274,14 @@ if __name__ == "__main__":
     ]
     with open("system_prompt.txt", "r") as f:
         system_prompt = f.read()
-    query ="""list the following products prices laptop, headphones, webcam, keyboard, mouse 
-    and apply gold discount to each product and provide the final price after discount."""
+    query = """Get the laptop price"""
+
+    #  """list the following products prices laptop, headphones, webcam, keyboard, mouse 
+    # and apply gold discount to each product and provide the final price after discount."""
 
     # "What is laptop price? after applied gold discount?"
-
 
     response = run_agent(query, system_prompt, tools)
     with open("output.txt", "a") as f:
         f.write(f"Query: {query}\n")
-        f.write(f"Response: {response[-1].content}\n")
-            
+        f.write(f"Response: {response}\n")
